@@ -14,13 +14,16 @@ pipeline {
         }
 
         stage('Deploy Website') {
-            steps {
-                sh '''
-                    echo "Deploying website..."
-                    sudo rsync -av --exclude='.git' ./ /var/www/html/
-                    echo "Deployment completed"
-                '''
-            }
-        }
+    steps {
+        sh '''
+            set -e
+            echo "Deploying website..."
+            sudo /usr/bin/rsync -av \
+                --exclude='.git' \
+                "$WORKSPACE/" /var/www/html/
+            echo "Deployment completed"
+        '''
+    }
+}
     }
 }
