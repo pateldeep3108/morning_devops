@@ -13,17 +13,22 @@ pipeline {
             }
         }
 
-        stage('Deploy Website') {
+        
+stage('Deploy Website') {
     steps {
         sh '''
             set -e
             echo "Deploying website..."
+
             sudo /usr/bin/rsync -av \
-                --exclude='.git' \
-                "$WORKSPACE/" /var/www/html/
-            echo "Deployment completed"
+              --exclude=.git \
+              /var/lib/jenkins/workspace/firstjob/ \
+              /var/www/html/
+
+            echo "Website deployment completed."
         '''
     }
 }
+
     }
 }
